@@ -1,10 +1,11 @@
 
 //
 function search(text) {
-	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  		chrome.tabs.sendMessage(tabs[0].id, {greeting: text});
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        console.log("Searching");
+        chrome.tabs.sendMessage(tabs[0].id, {msg: text}, null);
+        console.log("message sent");
 });
-	alert('You just typed "' + text + '"');
 }
 
 
