@@ -5,14 +5,12 @@ var $x;
 var ready = false;
 var serializer = new XMLSerializer();
 var video = $("video")[0];
-var vidPlayer = document.getElementById("video")
 console.log(video)
-video.pause();
-// var vidPlayer = document.getElementById("movie_player")
-// console.log(vidPlayer)
-// console.log(vidPlayer.getAudioTrack);
-// var xmlLink = vidPlayer.getAudioTrack().captionTracks[0]["H"];
-var xmlLink = "https://www.youtube.com/api/timedtext?v=6g4u0tsG-aA&key=yttt1&caps=-lyr&expire=1488586154&sparams=caps%2Cv%2Cexpire&hl=en_US&signature=DDE4B99A1720404F02DEE7DA9B4B7529C359E24E.D47BB97D1DA13871A43A159DBD9595C59580207E&lang=en"
+var vidPlayer = document.getElementById('#movie_player')
+console.log(vidPlayer)
+console.log(vidPlayer.getAudioTrack);
+var xmlLink = vidPlayer.getAudioTrack().captionTracks[0]["H"];
+// var xmlLink = "https://www.youtube.com/api/timedtext?v=6g4u0tsG-aA&key=yttt1&caps=-lyr&expire=1488586154&sparams=caps%2Cv%2Cexpire&hl=en_US&signature=DDE4B99A1720404F02DEE7DA9B4B7529C359E24E.D47BB97D1DA13871A43A159DBD9595C59580207E&lang=en"
 var parser = new DOMParser();
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
