@@ -6,20 +6,13 @@
 console.log("Hello, world!");
 var $x;
 
+var searchResults;
+var index = 0;
 var ready = false;
 var serializer = new XMLSerializer();
 var video = $("video")[0];
-// var vidPlayer = $('#movie_player')[0];
-// debugger;
-
-// console.log(vidPlayer)
-// console.log(vidPlayer.getAudioTrack);
-// var xmlLink = vidPlayer.getAudioTrack().captionTracks[0]["H"];
 var video_id = video.baseURI.split("?v=")[1]
 var xmlLink = "https://www.youtube.com/api/timedtext?v=" + video_id + "&lang=en"
-debugger;
-// var xmlLink = "https://www.youtube.com/api/timedtext?v=6g4u0tsG-aA&key=yttt1&caps=-lyr&expire=1488586154&sparams=caps%2Cv%2Cexpire&hl=en_US&signature=DDE4B99A1720404F02DEE7DA9B4B7529C359E24E.D47BB97D1DA13871A43A159DBD9595C59580207E&lang=en"
-
 var parser = new DOMParser();
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
@@ -42,16 +35,25 @@ xhttp.send();
 function search(keyword) {
     console.log(keyword)
     searchResults = $x.find("text:contains(" + keyword + ")");
+    index = 0;
 
-    return searchResults
-    console.log(searchResults)
 }
 
 //moves the video to the current search result
-function skip(searchResults) {
-    console.log(searchResults[0])
-    time = searchResults[0].attributes.start;
+function skip(dir) {
+    // console.log(searchResults[0])
+    if (index + dir >= searchResults.length) {
+        index = 0
+        console.log("end")
+    }
+    if (index + dir < 0) {
+        index = searchResults.length - 1;
+        console.log("beg")
+    }
+    time = searchResults[index + dir].attributes.start;
     video.currentTime = serializer.serializeToString(time)
+
+    index += dir;
 }
 
 chrome.runtime.onMessage.addListener(
@@ -63,7 +65,7 @@ chrome.runtime.onMessage.addListener(
 
 
     occurrences = search(request.msg, $x);
-    skip(occurrences);
+    skip(0);
 
     }
 
@@ -71,3 +73,19 @@ chrome.runtime.onMessage.addListener(
 
 
   });
+
+
+addEventListener("keydown", function(e) {
+    if (e.code == "KeyD") {
+        skip(1)
+    }
+    if (e.code == "KeyS") {
+        skip(-1)
+    }
+});
+
+
+
+
+
+
