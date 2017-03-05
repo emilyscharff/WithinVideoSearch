@@ -1,7 +1,3 @@
-// var jq = document.createElement('script');
-// jq.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js";
-// document.getElementsByTagName('head')[0].appendChild(jq);
-
 
 console.log("Hello, world!");
 var $x;
@@ -35,13 +31,13 @@ xhttp.send();
 function search(keyword) {
     console.log(keyword)
     searchResults = $x.find("text:contains(" + keyword + ")");
+    if (len)
     index = 0;
 
 }
 
 //moves the video to the current search result
 function skip(dir) {
-    // console.log(searchResults[0])
     if (index + dir >= searchResults.length) {
         index = 0
         console.log("end")
@@ -56,6 +52,7 @@ function skip(dir) {
     index += dir;
 }
 
+//Listens for Search Input from Omnibar
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
 
